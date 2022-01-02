@@ -12,9 +12,9 @@ Pavan K. Bendapudi, Sumaiya Nazeen, Justine Ryu, Onuralp Söylemez, Betty Rouais
   - The input vcf file must be quality controlled as described in the manuscript and then annotated with SnpEff, SnpSIFT, and dbNSFP database as follows:
     - Annotation with SnpEff and SnpSift:
       
-      `java -Xmx40g -jar $SNPEFF_BIN <SNPEFF_DATABASE> <QCED_VCF_GZ> > <SNPEFF_ANNOTATED_VCF>`
+      `java -Xmx40g -jar snpEff.jar <SNPEFF_DATABASE> <QCED_VCF_GZ> > <SNPEFF_ANNOTATED_VCF>`
       
-      `java -Xmx40g -jar $SNPSIFT_BIN dbnsfp -v -db <SNPSIFT_DATABASE> -f hg19_chr,"hg19_pos(1-based)", aaref, aaalt, aapos, genename, Ancestral_allele, SIFT_pred, Polyphen2_HVAR_pred, CADD_phred, gnomAD_exomes_NFE_AF, gnomAD_exomes_POPMAX_AF, gnomAD_genomes_NFE_AF, gnomAD_genomes_POPMAX_AF, clinvar_hgvs, Interpro_domain, GTEx_V7_gene, GTEx_V7_tissue -a -m <SNPEFF_ANNOTATED_VCF>  > <SNPSIFT_ANNOTATED_VCF>`
+      `java -Xmx40g -jar SnpSift.jar dbnsfp -v -db <dbNSFP_DATABASE> -f hg19_chr,"hg19_pos(1-based)", aaref, aaalt, aapos, genename, Ancestral_allele, SIFT_pred, Polyphen2_HVAR_pred, CADD_phred, gnomAD_exomes_NFE_AF, gnomAD_exomes_POPMAX_AF, gnomAD_genomes_NFE_AF, gnomAD_genomes_POPMAX_AF, clinvar_hgvs, Interpro_domain, GTEx_V7_gene, GTEx_V7_tissue -a -m <SNPEFF_ANNOTATED_VCF>  > <SNPSIFT_ANNOTATED_VCF>`
       
       `bgzip -c <SNPSIFT_ANNOTATED_VCF> > <SNPSIFT_ANNOTATED_VCF_GZ>`
       
