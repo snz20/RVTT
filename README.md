@@ -1,4 +1,4 @@
-# RVTT
+# Rare Variant Trend Test (RVTT)
 This code is associated with the following manuscript. If you use any part of the source code, please cite us:
 
 "Pathway-based Rare Variant Burden Analysis Identifies a Role for the Complement System in An Extreme Phenotype of Sepsis with Coagulopathy"
