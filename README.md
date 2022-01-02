@@ -1,6 +1,8 @@
 # RVTT
 This code is associated with the following manuscript. If you use any part of the source code, please cite us:
+
 "Pathway-based Rare Variant Burden Analysis Identifies a Role for the Complement System in An Extreme Phenotype of Sepsis with Coagulopathy"
+
 Pavan K. Bendapudi, Sumaiya Nazeen, Justine Ryu, Onuralp Söylemez, Betty Rouaisnel, Meaghan Colling, Bryce Pasko, Alissa Robbins, Michael Bouzinier, Lindsay Tomczak, Lindsay Collier, Sanjay Ram, Agnes Toth-Petroczy, Joel Krier, Elizabeth Fieg, Walter H. Dzik, James C. Hudspeth, Olga Pozdnyakova, Valentina Nardi, Richard Maas, Shamil Sunyaev, and Julie-Aurore Losman.
 
 ## Requirements:
