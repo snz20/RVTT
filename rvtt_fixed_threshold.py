@@ -144,12 +144,12 @@ def read_files(matfile, genefile, famfile, cutoff):
 	dfall = dfall.rename(columns=d)
 	genes = [l.strip() for l in open(genefile)]
 	df = dfall[dfall.Gene.isin(genes)]
-	mafs = [float(x) for x in list(df['PopMAF'])]
+	#mafs = [float(x) for x in list(df['PopMAF'])]
 	#h_maf = sorted(list(set(mafs)))
 	#print(h_maf)
 	#h_maf = [round(v,3) for v in h_maf]
-	h_maf = sorted(list(set(h_maf)))
-	sel_hmaf = np.array([h for h in h_maf if h <= cutoff and h > 0])
+	#h_maf = sorted(list(set(h_maf)))
+	#sel_hmaf = np.array([h for h in h_maf if h <= cutoff and h > 0])
 	lines = [l.strip() for l in open(famfile)]
 	case_control = []
 	names = []
@@ -161,7 +161,7 @@ def read_files(matfile, genefile, famfile, cutoff):
 		names.append(ind)
 		case_control.append(val)
 	return df, names, case_control
-	
+
 def create_indiv_count_matrix(df, names, case_control, cutoff):
 	df_sel = df.loc[df['PopMAF'] <= cutoff]
 	hdr = list(df_sel.columns)
@@ -208,9 +208,9 @@ def create_indiv_count_matrix(df, names, case_control, cutoff):
 	
 def calc_vt_stat(df, names, case_control, cutoff):
 	df_path = create_indiv_count_matrix(df, names, case_control, cutoff)
-    summary_df = summarize_matrix(df_path, case_control)
-    #print(summary_df)
-    features = df_path.columns
+    	summary_df = summarize_matrix(df_path, case_control)
+    	#print(summary_df)
+    	features = df_path.columns
 	obs_z = calc_test_statistic(features,summary_df)
 	#print(obs_z)
 	z_score = obs_z
@@ -228,7 +228,7 @@ def main():
     N = int(sys.argv[5])
     seed = int(sys.argv[6])
     outfile = sys.argv[7]
-    df, names, case_control = read_files(variantfile, genelist, famfile, cutoff)
+    df, names, case_control= read_files(variantfile, genelist, famfile, cutoff)
     obs_z = calc_vt_stat(df, names, case_control, cutoff)
     perm_p = permutation_test(df, names, case_control, cutoff, N, obs_z,seed)
     resc = pd.DataFrame({'Type': sel_categories, 'vt-fixed': cutoff, 'vt-z-score': list(obs_z), 'perm-p': list(perm_p)}, columns=['Type', 'vt-fixed', 'vt-z-score','perm-p'])
