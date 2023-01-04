@@ -126,7 +126,7 @@ def permutation_test(df, names, case_control, h_maf, N, obs_z,seed):
 	for i in range(N):
 		case_control_p = np.random.permutation(case_control)
 		h_maf = np.random.uniform(min(maf)-0.00001, max(maf),10)
-	args.append([df, names, case_control_p, h_maf])
+		args.append([df, names, case_control_p, h_maf])
 	results = Parallel(n_jobs=20,verbose=0,backend='multiprocessing')(map(delayed(core_task), args))
 	res2 = [b for (a,b) in results]
 	z_mat = np.array(res2)
@@ -151,7 +151,7 @@ def read_files(matfile, genefile, famfile, cutoff):
 	h_maf = sorted(list(set(mafs)))
 	#print(h_maf)
     # comment the following line if the number of samples in the dataset is small
-    h_maf = [round(v,3) for v in h_maf]
+	h_maf = [round(v,3) for v in h_maf]
 	h_maf = sorted(list(set(h_maf)))
 	print(h_maf)
 	sel_hmaf = np.array([h for h in h_maf if h <= cutoff and h > 0])
@@ -222,9 +222,9 @@ def calc_vt_stat(df, names, case_control, h_maf):
 		summary_df = summarize_matrix(df_path, case_control)
 		#print(summary_df)
 		features = df_path.columns
-	obs_z = calc_test_statistic(features,summary_df)
-	#print(obs_z)
-	z_scores[i] = obs_z
+		obs_z = calc_test_statistic(features,summary_df)
+		#print(obs_z)
+		z_scores[i] = obs_z
 	z_scores_mod = np.nan_to_num(z_scores)
 	sel_ind = np.argmax(z_scores_mod, axis=0)
 	sel_hmax = np.array([h_maf[i] for i in sel_ind])
