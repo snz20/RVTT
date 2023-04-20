@@ -124,7 +124,7 @@ def permutation_test(df, names, case_control, cutoff, N, obs_z,seed):
 	args = []
 	for i in range(N):
 		case_control_p = np.random.permutation(case_control)
-	    args.append([df, names, case_control_p, cutoff])
+		args.append([df, names, case_control_p, cutoff])
 	results = Parallel(n_jobs=20,verbose=0,backend='multiprocessing')(map(delayed(core_task), args))
 	z_mat = np.array(results)
 	p_count = np.zeros(len(sel_categories))
@@ -208,9 +208,9 @@ def create_indiv_count_matrix(df, names, case_control, cutoff):
 	
 def calc_vt_stat(df, names, case_control, cutoff):
 	df_path = create_indiv_count_matrix(df, names, case_control, cutoff)
-    	summary_df = summarize_matrix(df_path, case_control)
+	summary_df = summarize_matrix(df_path, case_control)
     	#print(summary_df)
-    	features = df_path.columns
+	features = df_path.columns
 	obs_z = calc_test_statistic(features,summary_df)
 	#print(obs_z)
 	z_score = obs_z
