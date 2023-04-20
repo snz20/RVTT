@@ -157,7 +157,7 @@ def read_files(matfile, genefile, famfile, cutoff):
 	return df, names, case_control
 
 def create_indiv_count_matrix(df, names, case_control, cutoff):
-	df_sel = df.loc[df['PopMAF'] < cutoff]
+	df_sel = df.loc[df['PopMAF'] <= cutoff]
 	hdr = list(df_sel.columns)
 	pind = hdr.index('polyphen')
 	sind = hdr.index('sift')
