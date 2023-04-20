@@ -120,7 +120,7 @@ def core_task(arglist):
 
 def permutation_test(df, names, case_control, cutoff, N, obs_z,seed):
 	np.random.seed(seed)
-	maf = h_maf
+	#maf = h_maf
 	args = []
 	for i in range(N):
 		case_control_p = np.random.permutation(case_control)
