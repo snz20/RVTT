@@ -74,8 +74,8 @@ def summarize_matrix(df, case_control):
 	for i in range(len(df.columns)):
 		df2.iloc[2*i,0] = df.columns[i]
 		df2.iloc[2*i+1,0] = df.columns[i]
-		df2.iloc[2*i,1] = "PF"
-		df2.iloc[2*i+1,1] = "Sepsis"
+		df2.iloc[2*i,1] = "Case"
+		df2.iloc[2*i+1,1] = "Control"
 	for i in range(len(sel_categories)):
 		case_bins = np.bincount(np_val[case_ind,i])
 		control_bins = np.bincount(np_val[control_ind,i])
@@ -144,12 +144,6 @@ def read_files(matfile, genefile, famfile, cutoff):
 	dfall = dfall.rename(columns=d)
 	genes = [l.strip() for l in open(genefile)]
 	df = dfall[dfall.Gene.isin(genes)]
-	#mafs = [float(x) for x in list(df['PopMAF'])]
-	#h_maf = sorted(list(set(mafs)))
-	#print(h_maf)
-	#h_maf = [round(v,3) for v in h_maf]
-	#h_maf = sorted(list(set(h_maf)))
-	#sel_hmaf = np.array([h for h in h_maf if h <= cutoff and h > 0])
 	lines = [l.strip() for l in open(famfile)]
 	case_control = []
 	names = []
@@ -163,7 +157,7 @@ def read_files(matfile, genefile, famfile, cutoff):
 	return df, names, case_control
 
 def create_indiv_count_matrix(df, names, case_control, cutoff):
-	df_sel = df.loc[df['PopMAF'] <= cutoff]
+	df_sel = df.loc[df['PopMAF'] < cutoff]
 	hdr = list(df_sel.columns)
 	pind = hdr.index('polyphen')
 	sind = hdr.index('sift')
