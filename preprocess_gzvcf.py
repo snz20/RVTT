@@ -109,6 +109,7 @@ def main():
 			elif x[5] == '2':
 				cases.append(x[1])
 
+	cat_found = {}
 	of.write("#Gene\tmutid\tchg\tnchg\tppchg\trsid\ttop_csq\tcsq\timpact\tpolyphen\tsift\tcsq2\tgg_af\tgg_nfe_af\tge_af\tge_nfe_af\tac\tan\tPopMAF\tac_case\tan_case\tac_control\tan_control\tmutated_individuals\n")
 	with gzip.open(infile,"rt") as fp:
 		l = fp.readline().strip()
@@ -213,9 +214,11 @@ def main():
 					print(info, counter)
 					l = fp.readline().strip()
 					continue
+				flag = 0
 				for i in range(len(info)):
 					if "ANN=" in info[i]:
 						ann_ind = i
+						flag = 1
 						#print(ann_ind)
 					elif "dbNSFP_gnomAD_genomes_POPMAX_AF" in info[i]:
 						dbgnom_g = i
@@ -240,6 +243,11 @@ def main():
 					elif "dbNSFP_aapos" in info[i]:
                                                 dbaapos	= i
 				#print(info[ann_ind])
+				if flag == 0:
+					counter += 1 
+					print(info, counter)
+					l = fp.readline().strip()
+					continue
 				if pphen_ind != -1:
 					pphen = info[pphen_ind].split('=')[1]
 				if sift_ind != -1:
@@ -311,12 +319,17 @@ def main():
 					if gng != '0':
 						gnomgAF_nfe = float(gng)
 				if len(mutated_indiv)>0:
+					if top_csq not in cat_found.keys():
+						cat_found[top_csq] = 1
+					else:
+						cat_found[top_csq] += 1
 					genes.append(gene)
 					s = gene + '\t' + mutid + '\t' +  chg + '\t' + mut + '\t' + ppchg + '\t' + rsid + '\t' + top_csq + '\t' + csq + '\t' + impact + '\t' + pphen + '\t' + sift + '\t' + csq2 + '\t' + str(gnomgAF) + '\t' + str(gnomgAF_nfe) + '\t' + str(gnomeAF) + '\t' + str(gnomeAF_nfe) + '\t' + str(ac) + '\t' + str(an) + '\t' + str(af) + '\t' + str(ac_case) + '\t' + str(an_case) + '\t' + str(ac_control) + '\t' + str(an_control) +'\t'+';'.join(mutated_indiv) + '\n'
 					of.write(s)
                     
 			l = fp.readline().strip()
-	
+
+	print(cat_found)
 	of.close()
 	
 if __name__ == '__main__':
